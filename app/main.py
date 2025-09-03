@@ -30,6 +30,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+def read_root():
+    return {"Hello": "World from Railway!"}
+
+
 @app.post(
     "/analyze-url",
     response_model=AnalysisResponse,
@@ -62,9 +67,10 @@ def analyze_url(request: URLRequest):
             detail="An unexpected internal server error occurred."
         )
 
-# --- ADDED: Block for direct execution ---
-# This block allows you to run the app directly for local development
-# using `python app/main.py`
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
 
+
+if __name__ == "__main__":
+    import uvicorn
+    # Railway provides the PORT environment variable
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)

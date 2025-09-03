@@ -4,6 +4,8 @@ requests
 beautifulsoup4
 pydantic[email]
 lxml
+gunicorn
+
 
 python-dotenv
 
