@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+requests
+beautifulsoup4
+pydantic[email]
+lxml
+
+python-dotenv
+
+langchain
+
+langchain-google-genai
