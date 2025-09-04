@@ -4,6 +4,8 @@ InsightLens is a full-stack application that analyzes any given web page to extr
 
 This project was developed as a take-home assignment.
 
+DEPLOYED PROJECT: https://insightlens.chetansingh.dev/
+
 ---
 
 ## 🚀 Features
