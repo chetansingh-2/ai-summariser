@@ -6,13 +6,10 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 
-# Import the ContentExtractor class we just finalized
 from .utils import ContentExtractor
 
 class AIAnalyzer:
-    """
-    A concise class to handle AI-based analysis of text using Google Gemini.
-    """
+
     PROMPT_TEMPLATE = """
 You are an expert analyst. Your task is to provide a structured analysis of the following web page content.
 
@@ -34,7 +31,7 @@ JSON Response:
         self.chain = LLMChain(llm=self.llm, prompt=self.prompt)
 
     def _clean_response(self, response_str: str) -> str:
-        """Cleans markdown formatting from the LLM's raw string output."""
+      
         if "```json" in response_str:
             start = response_str.find('{')
             end = response_str.rfind('}') + 1
@@ -43,7 +40,7 @@ JSON Response:
         return response_str
 
     def analyze(self, text: str) -> Optional[Dict[str, Any]]:
-        """Runs the analysis chain on the given text and returns a parsed dictionary."""
+       
         try:
             print("Invoking Google Gemini model for analysis...")
             response_dict = self.chain.invoke({"text": text})
@@ -60,18 +57,13 @@ JSON Response:
             return None
 
 def get_ai_analysis_from_url(url: str) -> Optional[Dict[str, Any]]:
-    """
-    The main service function that orchestrates the OOP-based workflow.
-    This is the single entry point for the API endpoint.
-    """
-    # 1. Use the ContentExtractor to get clean text
+
     extractor = ContentExtractor(url)
     main_text = extractor.extract()
     
     if not main_text:
         return None
     
-    # 2. Use the AIAnalyzer to get the summary and keywords
     analyzer = AIAnalyzer()
     analysis_result = analyzer.analyze(main_text)
     

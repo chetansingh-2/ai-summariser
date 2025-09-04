@@ -112,7 +112,6 @@ The assignment explicitly forbids the use of third-party libraries for density c
 * **Semantic-First Approach:** It prioritizes modern HTML5 tags (`<main>`, `<article>`) for high-confidence extraction.
 * **Custom "Voting" System:** If semantic tags are not found, it falls back to a custom scoring algorithm. This system evaluates potential content containers (`<div>`, `<section>`) and scores them based on text length, paragraph count, and link density. This allows it to programmatically separate the "signal" (main content) from the "noise" (menus, footers, ads).
 
-*This custom logic demonstrates the ability to solve complex data extraction problems from first principles.*
 
 ### 2. AI-Powered Analysis over Statistical Methods
 

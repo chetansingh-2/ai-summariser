@@ -5,20 +5,14 @@ from bs4 import BeautifulSoup
 from typing import Optional
 
 class ContentExtractor:
-    """
-    A concise, object-oriented class for fetching and extracting main content from a URL.
-    This class implements the custom, compliant heuristic algorithm.
-    """
+
     def __init__(self, url: str):
         self.url = url
         self.soup = None
         self.title_text = ""
     
     def _fetch_and_parse(self) -> bool:
-        """
-        Fetches the URL, validates it, and parses it into a BeautifulSoup object.
-        Returns True on success, False on failure.
-        """
+     
         try:
             headers = {
             'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36',
@@ -42,21 +36,19 @@ class ContentExtractor:
             return False
 
     def _clean_soup(self):
-        """Removes noisy tags from the parsed HTML."""
+      
         tags_to_remove = ['script', 'link', 'meta', 'style', 'nav', 'footer', 'header', 'aside', 'form', 'figure']
         for tag in self.soup.find_all(tags_to_remove):
             tag.decompose()
 
     def _get_main_text(self) -> Optional[str]:
-        """
-        Finds the main content using a layered heuristic approach.
-        """
-        # Heuristic 1: Look for semantic tags first.
+    
+        # Heuristic 1: semantic tags first.
         main_content_tag = self.soup.find('main') or self.soup.find('article')
         if main_content_tag:
             return main_content_tag.get_text(separator=' ', strip=True)
 
-        # Heuristic 2: Custom "Voting" System.
+        # Heuristic 2: "Voting" System.
         best_element = None
         max_score = -1
         positive_keywords = ['content', 'article', 'post', 'body', 'product', 'description', 'detail', 'item', 'articleBody']
@@ -85,9 +77,6 @@ class ContentExtractor:
         return best_element.get_text(separator=' ', strip=True) if best_element else None
 
     def extract(self) -> Optional[str]:
-        """
-        The main public method that orchestrates the entire extraction process.
-        """
         if not self._fetch_and_parse():
             return None
         
@@ -99,6 +88,5 @@ class ContentExtractor:
         if main_text:
             return f"{self.title_text}\n\n{main_text}"
         
-        # Fallback to title only if no main text is found
         return self.title_text if self.title_text else None
 
