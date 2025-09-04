@@ -64,12 +64,12 @@ For Windows
 python -m venv .venv
 .venv\Scripts\activate
 ```
-### 3. Configure the API Key
+### 3. Configure the API Key (SKIP, I hv kept .env file in code for your testing)
 
 Create a `.env` file in the project's root directory. This file will store your Google Gemini API key.
 
 ```bash
-web_classifier/.env
+/.env
 
 GOOGLE_API_KEY="your_google_api_key_goes_here"
 ```
